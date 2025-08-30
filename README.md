@@ -195,9 +195,9 @@ index 44a8d871f..c05c2e58c 100644
          raise TypeError("Given object was not a class.")
 ```
 
-### flash-attention
+### [broken] flash-attention (FA2)
 
-flash-attention: [tag: v2.8.2] https://github.com/ROCm/flash-attention.git
+[tag: ?] https://github.com/ROCm/flash-attention.git
 
 ```patch
 diff --git a/setup.py b/setup.py
