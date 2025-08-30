@@ -195,9 +195,9 @@ index 44a8d871f..c05c2e58c 100644
          raise TypeError("Given object was not a class.")
 ```
 
-### [broken] flash-attention (FA2)
+### flash-attention (FA2)
 
-[tag: ?] https://github.com/ROCm/flash-attention.git
+[tag: v2.8.0.post2] https://github.com/Dao-AILab/flash-attention
 
 ```patch
 diff --git a/setup.py b/setup.py
@@ -218,6 +218,8 @@ index cafc818f..919dd483 100644
 
 ### xformers
 
-[branch: develop] https://github.com/ROCm/xformers.git
+*Note: broken in comfy. `--use-flash-attention --disable-xformers` instead.
 
-- third_party/flash-attention/setup.py: add `gfx906` to `allowed_archs`, same as above.
+[tag: v0.0.32.post2] https://github.com/facebookresearch/xformers
+[pretty much broken, dont use] https://github.com/ROCm/xformers.git
+
