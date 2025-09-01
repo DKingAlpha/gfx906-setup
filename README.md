@@ -253,7 +253,7 @@ Notes:
 1. `GPU_ARCHS=gfx906 pip wheel . --no-build-isolation --no-dependencies -v 2>&1 | tee build.log`
 2. clean flash-attention/build/* if composable_kernel source changed.
 
-### [ck broken] xformers
+### xformers
 
 *Note: broken in comfy. `--use-flash-attention --disable-xformers` instead.
 
@@ -261,7 +261,23 @@ Notes:
 
 - [tag: v0.0.30] https://github.com/facebookresearch/xformers
 
-ck / cksplit broken. Use flash instead.
+ck / cksplit is broken. Use flash instead. Change priority as below
+
+```patch
+diff --git a/xformers/ops/fmha/dispatch.py b/xformers/ops/fmha/dispatch.py
+index 5908635d..7a08f813 100644
+--- a/xformers/ops/fmha/dispatch.py
++++ b/xformers/ops/fmha/dispatch.py
+@@ -98,7 +98,7 @@ def _dispatch_fw_priority_list(
+     else:
+         priority_list_ops = deque(
+             [
+-                ck.FwOp,
++                flash.FwOp,
+             ]
+         )
+     if not needs_gradient:
+```
 
 if xformers source changed:
 
