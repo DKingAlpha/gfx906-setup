@@ -32,6 +32,18 @@ This document will hopefully help you revive these cards.
 
 **for outdated packages, always use `downgrade` to install specific version.**
 
+### Before You Start: Attention Benchmarks
+
+```sh
+SDXL-base-vae, 512x512, 20 steps, batch size 1, 1 GPU
+
+quad-cross-attention: 7.2s
+split-cross-attention: 7.3s
+pytorch-cross-attention: 7.6s
+flash-attention: 10.4s
+triton_splitk.FwOp+flash.BwOp: 13.3s
+```
+
 ### ROCm 6.3.3
 
 ```sh
