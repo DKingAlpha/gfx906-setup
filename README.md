@@ -255,8 +255,6 @@ Notes:
 
 ### xformers
 
-*Note: broken in comfy. `--use-flash-attention --disable-xformers` instead.
-
 `HIP_ARCHITECTURES=gfx906 PYTORCH_ROCM_ARCH=gfx906 pip wheel . --no-build-isolation --no-dependencies -v 2>&1 | tee build.log`
 
 - [tag: v0.0.30] https://github.com/facebookresearch/xformers
@@ -278,6 +276,8 @@ index 5908635d..7a08f813 100644
          )
      if not needs_gradient:
 ```
+
+Without patch above, xformers will break in comfy. In that case you can use `--use-flash-attention --disable-xformers` instead.
 
 if xformers source changed:
 
