@@ -248,13 +248,22 @@ index fe35d9ca7..a6fc71049 100755
          add_library(${INSTANCE_NAME} OBJECT ${INST_OBJ})
 ```
 
-Notes:\n
-clean flash-attention/build/* if composable_kernel source changed.
+Notes:
+
+1. `GPU_ARCHS=gfx906 pip wheel . --no-build-isolation --no-dependencies -v 2>&1 | tee build.log`
+2. clean flash-attention/build/* if composable_kernel source changed.
 
 ### xformers
 
 *Note: broken in comfy. `--use-flash-attention --disable-xformers` instead.
 
-[tag: v0.0.32.post2] https://github.com/facebookresearch/xformers
-[pretty much broken, dont use] https://github.com/ROCm/xformers.git
+`HIP_ARCHITECTURES=gfx906 PYTORCH_ROCM_ARCH=gfx906 pip wheel . --no-build-isolation --no-dependencies -v 2>&1 | tee build.log`
 
+- [tag: v0.0.30] https://github.com/facebookresearch/xformers
+- [pretty much broken, dont use] https://github.com/ROCm/xformers.git
+
+if xformers source changed:
+
+1. `rm -rf` and `git checkout` `xformers/xformers/csrc/attention/` 
+2. `git submodule update --init --recursive`
+3. apply patches in `flash-attention` section.
