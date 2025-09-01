@@ -197,7 +197,7 @@ index 44a8d871f..c05c2e58c 100644
 
 ### flash-attention (FA2)
 
-[tag: v2.8.0-cktile] https://github.com/ROCm/flash-attention
+[tag: v2.7.4-cktile] https://github.com/ROCm/flash-attention
 
 ```patch
 diff --git a/setup.py b/setup.py
@@ -228,45 +228,28 @@ index 1e041e45..404f01a6 100644
  else:
 ```
 
-[rocm-6.3.3] csrc/composable_kernel   # `git add csrc/composable_kernel` to bypass `submodule update` by setup.py
+[commit d58f2b8bd0c2adad65a731403673d545d8483acb] csrc/composable_kernel
 
 ```patch
 diff --git a/library/src/tensor_operation_instance/gpu/CMakeLists.txt b/library/src/tensor_operation_instance/gpu/CMakeLists.txt
-index f82176ffc..2bf52d01b 100644
+index fe35d9ca7..a6fc71049 100755
 --- a/library/src/tensor_operation_instance/gpu/CMakeLists.txt
 +++ b/library/src/tensor_operation_instance/gpu/CMakeLists.txt
-@@ -83,7 +83,9 @@ function(add_instance_library INSTANCE_NAME)
+@@ -141,7 +141,9 @@ function(add_instance_library INSTANCE_NAME)
              foreach(target IN LISTS INST_TARGETS)
                      string(APPEND offload_targets "--offload-arch=${target} ")
              endforeach()
 -            set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS ${offload_targets})
-+            if(offload_targets)
++            if (offload_targets)
 +                set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS ${offload_targets})
 +            endif()
              list(APPEND INST_OBJ ${source})
          endforeach()
          add_library(${INSTANCE_NAME} OBJECT ${INST_OBJ})
-diff --git a/profiler/src/profile_grouped_gemm_fixed_nk.cpp b/profiler/src/profile_grouped_gemm_fixed_nk.cpp
-index de90a33ef..74f6cbb94 100644
---- a/profiler/src/profile_grouped_gemm_fixed_nk.cpp
-+++ b/profiler/src/profile_grouped_gemm_fixed_nk.cpp
-@@ -90,7 +90,6 @@ int profile_grouped_gemm_fixed_nk(int argc, char* argv[])
- #if defined(CK_ENABLE_FP8)
-     using F8 = ck::f8_t;
- #endif
--    using BF16 = ck::bhalf_t;
-     using I8   = int8_t;
- 
-     int n_warmup = 1;
-@@ -102,6 +101,7 @@ int profile_grouped_gemm_fixed_nk(int argc, char* argv[])
-     }
- 
- #if defined(CK_ENABLE_BF16) && defined(CK_ENABLE_INT8)
-+    using BF16 = ck::bhalf_t;
-     if(data_type == GemmDataType::BF16_I8_BF16 && layout == GemmMatrixLayout::MK_KN_MN)
-     {
-         ck::profiler::profile_grouped_gemm_fixed_nk_impl<BF16,
 ```
+
+Notes:\n
+clean flash-attention/build/* if composable_kernel source changed.
 
 ### xformers
 
