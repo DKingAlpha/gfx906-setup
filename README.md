@@ -197,7 +197,7 @@ index 44a8d871f..c05c2e58c 100644
 
 ### flash-attention (FA2)
 
-[tag: v2.7.4-cktile] https://github.com/ROCm/flash-attention
+[tag: v2.8.3 / v2.7.4-cktile] https://github.com/ROCm/flash-attention
 
 ```patch
 diff --git a/setup.py b/setup.py
@@ -228,7 +228,7 @@ index 1e041e45..404f01a6 100644
  else:
 ```
 
-[commit d58f2b8bd0c2adad65a731403673d545d8483acb] csrc/composable_kernel
+[HEAD or commit d58f2b8bd0c2adad65a731403673d545d8483acb] csrc/composable_kernel
 
 ```patch
 diff --git a/library/src/tensor_operation_instance/gpu/CMakeLists.txt b/library/src/tensor_operation_instance/gpu/CMakeLists.txt
@@ -253,14 +253,15 @@ Notes:
 1. `GPU_ARCHS=gfx906 pip wheel . --no-build-isolation --no-dependencies -v 2>&1 | tee build.log`
 2. clean flash-attention/build/* if composable_kernel source changed.
 
-### xformers
+### [ck broken] xformers
 
 *Note: broken in comfy. `--use-flash-attention --disable-xformers` instead.
 
 `HIP_ARCHITECTURES=gfx906 PYTORCH_ROCM_ARCH=gfx906 pip wheel . --no-build-isolation --no-dependencies -v 2>&1 | tee build.log`
 
 - [tag: v0.0.30] https://github.com/facebookresearch/xformers
-- [pretty much broken, dont use] https://github.com/ROCm/xformers.git
+
+ck / cksplit broken. Use flash instead.
 
 if xformers source changed:
 
